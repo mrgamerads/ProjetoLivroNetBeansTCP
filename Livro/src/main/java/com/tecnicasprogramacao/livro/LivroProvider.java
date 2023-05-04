@@ -10,8 +10,6 @@ import com.google.cloud.firestore.Precondition;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
-import static com.tecnicasprogramacao.livro.Conexion.db;
-import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JTable;
@@ -77,6 +75,8 @@ public class LivroProvider {
 
     public static void carregarTabelaLivros(JTable table){
         
+        db = FirestoreClient.getFirestore();
+        
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Titulo");
@@ -95,13 +95,13 @@ public class LivroProvider {
                    document.getString("Titulo"),
                    document.getString("Autor"),
                    document.getString("Editora"),
-                   document.getString("Ano Edicao"),
+                   document.getDouble("Ano Edicao"),
                    document.getString("Localizacao"),                   
                });
            }
         }
         catch (InterruptedException | ExecutionException e){
-            System.err.println("Erro: " + e.getMessage());           
+            System.out.println("Erro: " + e.getMessage());           
         }
         
         table.setModel(model);

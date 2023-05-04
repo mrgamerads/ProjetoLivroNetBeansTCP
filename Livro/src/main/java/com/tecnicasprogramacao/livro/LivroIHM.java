@@ -50,6 +50,7 @@ public class LivroIHM extends javax.swing.JFrame {
         txtLocalizacao = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,16 +112,17 @@ public class LivroIHM extends javax.swing.JFrame {
 
         jLabel6.setText("ID:");
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel7.setText("Biblioteca do Santa");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -136,14 +138,14 @@ public class LivroIHM extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtAnoEdicao)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGap(0, 1, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtEditora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtAutor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(txtLocalizacao)
                                     .addComponent(txtID)))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -152,12 +154,19 @@ public class LivroIHM extends javax.swing.JFrame {
                                 .addComponent(jButton3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton4)))
-                        .addGap(110, 110, 110))))
+                        .addGap(104, 104, 104)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(116, 116, 116)
+                .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -183,13 +192,13 @@ public class LivroIHM extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton4)
                     .addComponent(jButton3)
                     .addComponent(jButton2))
-                .addGap(15, 15, 15))
+                .addGap(29, 29, 29))
         );
 
         pack();
@@ -264,14 +273,15 @@ public class LivroIHM extends javax.swing.JFrame {
     
     private void salvar(){
         
-        int id = (int) (Math.random()*100000);
+        int id = (int) (Math.random()*10000);
+        double anoEdicao = Double.parseDouble(txtAnoEdicao.getText());
         
         try{
             Map<String, Object> data = new HashMap<>();
             data.put("Titulo", txtTitulo.getText());
             data.put("Autor", txtAutor.getText());
             data.put("Editora", txtEditora.getText());
-            data.put("AnoEdicao", txtAnoEdicao.getText());
+            data.put("AnoEdicao", anoEdicao);
             data.put("Localizacao", txtLocalizacao.getText());
             LivroProvider.inseriLivro("Livro", String.valueOf(id), data);
             JOptionPane.showMessageDialog(null, "Salvo com sucesso");
@@ -286,17 +296,9 @@ public class LivroIHM extends javax.swing.JFrame {
         }        
     }
     
-    void limpar(){
-        txtTitulo.setText("");
-        txtAutor.setText("");
-        txtEditora.setText("");
-        txtAnoEdicao.setText("");
-        txtLocalizacao.setText("");    
-        txtID.setText("");
-    }
-    
     private void atualizar() {
         
+        double anoEdicao = Double.parseDouble(txtAnoEdicao.getText());
         String idDoc = txtID.getText();
       
         try{
@@ -304,7 +306,7 @@ public class LivroIHM extends javax.swing.JFrame {
             data.put("Titulo", txtTitulo.getText());
             data.put("Autor", txtAutor.getText());
             data.put("Editora", txtEditora.getText());
-            data.put("AnoEdicao", txtAnoEdicao.getText());
+            data.put("AnoEdicao", anoEdicao);
             data.put("Localizacao", txtLocalizacao.getText());
             LivroProvider.atualizaLivro("Livro", idDoc, data);
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso");
@@ -335,6 +337,16 @@ public class LivroIHM extends javax.swing.JFrame {
         finally{
             LivroProvider.carregarTabelaLivros(jTable1);
         }        
+    }
+
+    
+    void limpar(){
+        txtTitulo.setText("");
+        txtAutor.setText("");
+        txtEditora.setText("");
+        txtAnoEdicao.setText("");
+        txtLocalizacao.setText("");    
+        txtID.setText("");
     }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -348,6 +360,7 @@ public class LivroIHM extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtAnoEdicao;
