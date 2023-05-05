@@ -274,7 +274,7 @@ public class LivroIHM extends javax.swing.JFrame {
     private void salvar(){
         
         int id = (int) (Math.random()*10000);
-        double anoEdicao = Double.parseDouble(txtAnoEdicao.getText());
+        int anoEdicao = Integer.parseInt(txtAnoEdicao.getText());
         
         try{
             Map<String, Object> data = new HashMap<>();
@@ -298,7 +298,7 @@ public class LivroIHM extends javax.swing.JFrame {
     
     private void atualizar() {
         
-        double anoEdicao = Double.parseDouble(txtAnoEdicao.getText());
+        int anoEdicao = Integer.parseInt(txtAnoEdicao.getText());
         String idDoc = txtID.getText();
       
         try{

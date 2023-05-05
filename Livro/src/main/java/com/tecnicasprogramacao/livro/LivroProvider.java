@@ -95,7 +95,7 @@ public class LivroProvider {
                    document.getString("Titulo"),
                    document.getString("Autor"),
                    document.getString("Editora"),
-                   document.getDouble("Ano Edicao"),
+                   document.get("AnoEdicao"),
                    document.getString("Localizacao"),                   
                });
            }
